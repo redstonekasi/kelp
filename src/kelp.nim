@@ -1,0 +1,33 @@
+import std/[rdstdin, os, sequtils], builtins/[core, executeable], environment, eval, parser, printer, types
+
+when isMainModule:
+  var exeEnv = newEnv(nil, exeNamespace) # is there no way to merge normal tables in nim?
+  var env = newEnv(exeEnv, coreNamespace)
+
+  proc rep(str: string): string {.discardable.} =
+    $str.parse.eval(env)
+
+  proc evil(xs: varargs[KelpNode]): KelpNode =
+    if xs.len < 1:
+      raise newException(ValueError, "unexpected number of arguments, expected 1, got " & $xs.len)
+    xs[0].eval(env)
+
+  env.set("eval", newNative evil)
+
+  rep "(def! load (fn* [f] (eval (parse (string \"(do \" (file f) \"\nnil)\")))))"
+
+  if paramCount() >= 1:
+    env.set("ARGV", newList((if paramCount() > 1: commandLineParams()[1..^1] else: @[]).map(newString)))
+    rep "(load \"" & paramStr(1) & "\")"
+    quit()
+
+  while true:
+    try:
+      let input = readLineFromStdin("kelp> ")
+      echo input.rep
+    except IOError: quit()
+    except:
+      let error = getCurrentExceptionMsg()
+      if error != "unexpected EOF":
+        echo "Error: " & getCurrentExceptionMsg()
+        # echo getCurrenctException().getStackTrace()
