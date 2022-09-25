@@ -2,7 +2,7 @@ import std/[tables, sequtils, strutils], environment, types, util, printer
 
 type EvalError = object of ValueError
 
-const SpecialForms = ["def!", "let*", "fn*", "do", "if", "quote", "quasiquote", "unquote", "splice-unquote", "defmacro!", "hashfn"]
+const SpecialForms = ["def!", "let*", "fn*", "defn!", "do", "if", "quote", "quasiquote", "unquote", "splice-unquote", "defmacro!", "hashfn"]
 
 proc quasiquote(node: KelpNode): KelpNode
 
@@ -180,6 +180,16 @@ proc eval*(node: KelpNode, env: var KelpEnv): KelpNode =
           raise newException(EvalError, "expected args to be a vector")
 
         return newFun(args, body, env)
+      of "defn!":
+        if node.list.len < 4:
+          raise newException(EvalError, "insufficient amount of arguments, expected 3, got " & $(node.list.len - 1))
+
+        let
+          key = node.list[1]
+          args = node.list[2]
+          body = node.list[3]
+
+        node = newList(newSymbol("def!"), key, newList(newSymbol("fn*"), args, body))
       of "do":
         discard newList(node.list[1..^1]).resolve(env) # evaluate all except last
         node = node.list[^1] # eval and return last
