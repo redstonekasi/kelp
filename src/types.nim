@@ -87,6 +87,8 @@ proc isAtom*(x: KelpNode): bool =
 # miscellaneous procedures
 proc isSequential*(x: KelpNode): bool =
   x.kind in {kpList, kpVector}
+proc isMacro*(x: KelpNode): bool =
+  x.isFun and x.isMacro
 
 proc `==`*(x, y: KelpNode): bool =
   if not (x.isSequential and y.isSequential):

@@ -121,6 +121,7 @@ These functions all take a value and return whether or not that value is of the 
 | `fun?` | function |
 | `atom?` | atom |
 | `sequential?` | list or vector |
+| `macro?` | macro |
 
 ### Executeable environment
 These functions will only be available in the REPL and when executing a file. This will only matter once Kelp is functional as a library.

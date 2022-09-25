@@ -299,4 +299,5 @@ let coreNamespace* = {
   "fun?": wrapTypeNative isFun,
   "atom?": wrapTypeNative isAtom,
   "sequential?": wrapTypeNative isSequential,
+  "macro?": wrapTypeNative isMacro
 }.toTable
