@@ -14,7 +14,8 @@ const macros = {
   '`': proc(p: var Parser): KelpNode = newList(newSymbol "quasiquote", p.parse()),
   '~': proc(p: var Parser): KelpNode = newList(newSymbol "unquote", p.parse()),
   '^': proc(p: var Parser): KelpNode = newList(newSymbol "splice-unquote", p.parse()),
-  '@': proc(p: var Parser): KelpNode = newList(newSymbol "deref", p.parse())
+  '@': proc(p: var Parser): KelpNode = newList(newSymbol "deref", p.parse()),
+  '#': proc(p: var Parser): KelpNode = newList(newSymbol "hashfn", p.parse())
 }.toTable
 
 # some helper functions to make transitioning from the old parser easier

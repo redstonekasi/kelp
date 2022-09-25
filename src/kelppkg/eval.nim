@@ -200,12 +200,16 @@ proc eval*(node: KelpNode, env: var KelpEnv): KelpNode =
           node = then
       of "quote":
         if node.list.len < 2:
-          raise newException(EvalError, "insufficient amount of arguments, expected 2, got " & $(node.list.len - 1))
+          raise newException(EvalError, "insufficient amount of arguments, expected 1, got " & $(node.list.len - 1))
         return node.list[1]
       of "quasiquote":
         if node.list.len < 2:
-          raise newException(EvalError, "insufficient amount of arguments, expected 2, got " & $(node.list.len - 1))
+          raise newException(EvalError, "insufficient amount of arguments, expected 1, got " & $(node.list.len - 1))
         node = node.list[1].quasiquote()
+      of "hashfn":
+        if node.list.len < 2:
+          raise newException(EvalError, "insufficient amount of arguments, expected 2, got " & $(node.list.len - 1))
+        return newFun(newList(), node.list[1], env, false, true)
       else:
         default()
     else:

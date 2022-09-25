@@ -19,6 +19,7 @@ type
       body*: KelpNode
       env*: KelpEnv
       isMacro*: bool
+      isHash*: bool
     of kpAtom:
       val*: KelpNode
       oid*: Oid # i hope you explode
@@ -48,8 +49,8 @@ proc newTable*(x: OrderedTable[string, KelpNode]): KelpNode =
   KelpNode(kind: kpTable, table: x)
 proc newNative*(x: FunType): KelpNode =
   KelpNode(kind: kpNative, fun: x)
-proc newFun*(params: KelpNode, body: KelpNode, env: KelpEnv, isMacro = false): KelpNode =
-  KelpNode(kind: kpFun, params: params, body: body, env: env, isMacro: isMacro)
+proc newFun*(params: KelpNode, body: KelpNode, env: KelpEnv, isMacro = false, isHash = false): KelpNode =
+  KelpNode(kind: kpFun, params: params, body: body, env: env, isMacro: isMacro, isHash: isHash)
 proc newAtom*(x: KelpNode): KelpNode =
   KelpNode(kind: kpAtom, val: x, oid: genOid())
 
