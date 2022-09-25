@@ -259,7 +259,7 @@ let coreNamespace* = {
   "not": wrapTypeNative isFalse,
 
   "len": newNative length, # list / vector functions
-  "empty": newNative empty,
+  "empty?": newNative empty,
   "nth": newNative nth,
   "slice": newNative slice,
   "unshift": newNative unshift,
