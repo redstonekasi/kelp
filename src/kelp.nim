@@ -20,7 +20,7 @@ when isMainModule:
   if paramCount() >= 1:
     env.set("ARGV", newList((if paramCount() > 1: commandLineParams()[1..^1] else: @[]).map(newString)))
     try:
-      rep readFile(paramStr(1))
+      rep "(load \"" & paramStr(1) & "\")"
     except:
       echo "Error: " & getCurrentExceptionMsg()
     quit()
