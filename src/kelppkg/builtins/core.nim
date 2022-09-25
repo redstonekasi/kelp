@@ -139,6 +139,19 @@ proc values(xs: varargs[KelpNode]): KelpNode =
 
   newList xs[0].table.values.toSeq
 
+proc get(xs: varargs[KelpNode]): KelpNode =
+  if xs.len < 2:
+    raise newException(ValueError, "unexpected number of arguments, expected 2, got " & $xs.len)
+  if not xs[0].isTable:
+    raise newException(ValueError, "expected table as first argument")
+  if not xs[1].isKeyword:
+    raise newException(ValueError, "expected keyword as second argument")
+
+  if xs[0].table.hasKey(xs[1].str):
+    xs[0].table[xs[1].str]
+  else:
+    nilObj
+
 proc assoc(xs: varargs[KelpNode]): KelpNode =
   if xs.len < 2:
     raise newException(ValueError, "unexpected number of arguments, expected 2, got " & $xs.len)
@@ -268,6 +281,7 @@ let coreNamespace* = {
 
   "keys": newNative keys, # table functions
   "values": newNative values,
+  "get": newNative get,
   "assoc": newNative assoc,
   "dissoc": newNative dissoc,
 
