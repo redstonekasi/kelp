@@ -1,5 +1,18 @@
-# kelp
+# Kelp
 Kasimir's Extraordinary List Processor
+
+## Installation
+```
+nimble install https://github.com/redstonekasi/kelp
+```
+
+## Usage
+### As a binary
+Run `kelp` without any arguments to start the REPL.
+Use `kelp <filename>` loads the specified file and executes it's contents as Kelp code.
+
+### As a library
+TBA
 
 ## Todo
 - [ ] Rewrite the lexer and parser
