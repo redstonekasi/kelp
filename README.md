@@ -6,6 +6,7 @@ Kasimir's Extraordinary List Processor
 - [ ] Write utility macro to avoid repitition in native definition
 - [x] Fix string converting
 - [x] Documentation
+- [ ] Explain all special forms and macros
 - [ ] Library
 
 ## Documentation
