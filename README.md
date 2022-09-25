@@ -20,7 +20,7 @@ TBA
 - [x] Fix string converting
 - [x] Documentation
 - [ ] Explain all special forms and macros
-- [ ] Library
+- [ ] Library documentation
 
 ## Documentation
 ### Math functions
