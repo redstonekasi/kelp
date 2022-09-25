@@ -1,12 +1,12 @@
 # Package
 
-version       = "0.10.0"
+version       = "0.11.0"
 author        = "redstonekasi"
 description   = "Kasimir's Extraordinary List Processor"
 license       = "BSD-3-Clause"
 srcDir        = "src"
 bin           = @["kelp"]
-
+installExt    = @["nim"]
 
 # Dependencies
 

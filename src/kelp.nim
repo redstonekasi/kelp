@@ -1,4 +1,6 @@
-import std/[rdstdin, os, sequtils], builtins/[core, executeable], environment, eval, parser, printer, types
+import std/[rdstdin, os, sequtils]
+import kelppkg/builtins/[core, executeable]
+import kelppkg/[environment, eval, parser, printer, types]
 
 when isMainModule:
   var exeEnv = newEnv(nil, exeNamespace) # is there no way to merge normal tables in nim?
