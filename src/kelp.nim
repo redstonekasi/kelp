@@ -24,10 +24,9 @@ when isMainModule:
   while true:
     try:
       let input = readLineFromStdin("kelp> ")
-      echo input.rep
+      let res = input.parse
+      if not res.isNil:
+        echo res.eval(env)
     except IOError: quit()
     except:
-      let error = getCurrentExceptionMsg()
-      if error != "unexpected EOF":
-        echo "Error: " & getCurrentExceptionMsg()
-        # echo getCurrenctException().getStackTrace()
+      echo "Error: " & getCurrentExceptionMsg()

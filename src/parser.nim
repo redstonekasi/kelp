@@ -78,9 +78,8 @@ proc parse*(s: Stream, filename = ""): KelpNode =
 
   try:
     var p = Parser(tokens: l.gatherTokens())
+    if p.tokens.len == 0: return nilObj
     result = p.parse()
-    # if p.peek().kind != tkEof:
-    #   raise newException(ParserError, "expected EOF, got " & $p.peek().kind) # todo: token to readable name mapping
   finally:
     l.close()
 
