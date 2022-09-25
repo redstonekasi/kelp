@@ -14,6 +14,7 @@ proc isRecursiveAtom(x: KelpNode, oid: Oid): bool =
       if isRecursiveAtom(i, oid): return true
   of kpAtom:
     if x.oid == oid: return true
+    elif x.val.isAtom: return isRecursiveAtom(x.val, oid)
   else:
     return false
 
