@@ -21,6 +21,7 @@ TBA
 - [x] Documentation
 - [ ] Explain all special forms and macros
 - [ ] Library documentation
+- [ ] Analyse hash functions for proper argument checking
 
 ## Documentation
 ### Math functions
