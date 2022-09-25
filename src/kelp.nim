@@ -13,12 +13,14 @@ when isMainModule:
     xs[0].eval(env)
 
   env.set("eval", newNative evil)
-
   rep "(def! load (fn* [f] (eval (parse (string \"(do \" (file f) \"\nnil)\")))))"
 
   if paramCount() >= 1:
     env.set("ARGV", newList((if paramCount() > 1: commandLineParams()[1..^1] else: @[]).map(newString)))
-    rep "(load \"" & paramStr(1) & "\")"
+    try:
+      rep readFile(paramStr(1))
+    except:
+      echo "Error: " & getCurrentExceptionMsg()
     quit()
 
   while true:

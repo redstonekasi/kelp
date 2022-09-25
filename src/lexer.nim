@@ -41,7 +41,7 @@ proc getColumn*(l: Lexer): int {.inline.} = l.getColNumber(l.bufpos)
 proc getFilename*(l: Lexer): string {.inline.} = l.filename
 
 proc newLexerError(l: Lexer, msg: string): ref LexerError =
-  newException(LexerError, "$1($2:$3) Error: $4" % [
+  newException(LexerError, "$1($2:$3) $4" % [
     l.filename, $l.getLine(), $l.getColumn(), msg])
 
 proc open*(l: var Lexer, stream: Stream, filename: string, special: set[char] = {})=
