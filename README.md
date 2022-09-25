@@ -8,7 +8,7 @@ nimble install https://github.com/redstonekasi/kelp
 
 ## Usage
 ### As a binary
-Run `kelp` without any arguments to start the REPL.
+Run `kelp` without any arguments to start the REPL.  
 Use `kelp <filename>` loads the specified file and executes it's contents as Kelp code.
 
 ### As a library
