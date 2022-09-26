@@ -153,14 +153,20 @@ proc get(xs: varargs[KelpNode]): KelpNode =
     nilObj
 
 proc assoc(xs: varargs[KelpNode]): KelpNode =
-  if xs.len < 2:
-    raise newException(ValueError, "unexpected number of arguments, expected 2, got " & $xs.len)
-  if not xs.allIt(it.isTable):
-    raise newException(ValueError, "expected table as argument")
+  if xs.len < 3:
+    raise newException(ValueError, "unexpected number of arguments, expected at least 3, got " & $xs.len)
+  if not xs[0].isTable:
+    raise newException(ValueError, "expected table as first argument")
+  if xs.len mod 2 == 0:
+    raise newException(ValueError, "expected even amount of key/value arguments")
 
   result = newTable(xs[0].table)
-  for key, val in xs[1].table:
-    result.table[key] = val
+  for i in countup(1, xs.high, 2):
+    let k = xs[i]
+    let v = xs[i + 1]
+
+    if not k.isKeyword: raise newException(ValueError, "expected keyword as key")
+    result.table[k.str] = v
 
 proc dissoc(xs: varargs[KelpNode]): KelpNode =
   if xs.len < 2:

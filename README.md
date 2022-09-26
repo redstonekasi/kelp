@@ -85,7 +85,7 @@ Tables in Kelp are what you might know as objects or hash maps in other programm
 | --- | --- |
 | `keys` | Returns a list of all keys in a table |
 | `values` | Returns a list of all values in a table |
-| `assoc <table1> <table2>` | Associate the key/value pairs of one table with another, merge them |
+| `assoc <table> (<keyword> <value>)...` | Takes a number of key value pairs and returns the result of associating them with the given table. |
 | `dissoc <table> <keywords...>` | Returns a copy of the table with all specified keys removed, ignores keys that aren't present. |
 
 ### Miscellaneous functions
