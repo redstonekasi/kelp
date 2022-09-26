@@ -22,6 +22,7 @@ TBA
 - [ ] Explain all special forms and macros
 - [ ] Library documentation
 - [ ] Analyse hash functions for proper argument checking
+- [ ] Bignums
 
 ## Documentation
 ### Math functions
