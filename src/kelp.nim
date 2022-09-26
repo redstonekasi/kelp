@@ -3,6 +3,11 @@ import kelppkg/builtins/[core, executeable]
 import kelppkg/[environment, eval, parser, printer, types]
 
 when isMainModule:
+  proc ctrlc() {.noconv.} =
+    echo "Interrupted, exiting..."
+    quit()
+  setControlCHook(ctrlc)
+
   var exeEnv = newEnv(nil, exeNamespace) # is there no way to merge normal tables in nim?
   var env = newEnv(exeEnv, coreNamespace)
 
