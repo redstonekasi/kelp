@@ -1,4 +1,4 @@
-import std/[sequtils, strutils, tables], ../types, ../printer, ../eval, ../util
+import std/[sequtils, strutils, tables], ../types, ../printer, ../eval, ../util, ../parser
 
 # in a seperate module due to circular dependencies, this shouldn't really be here
 proc execute*(x: KelpNode, args: varargs[KelpNode]): KelpNode =
@@ -204,6 +204,13 @@ proc call(xs: varargs[KelpNode]): KelpNode =
 proc toString(xs: varargs[KelpNode]): KelpNode =
   newString xs.mapIt(`$`(it, false)).join()
 
+proc parse(xs: varargs[KelpNode]): KelpNode =
+  if xs.len < 1:
+    raise newException(ValueError, "unexpected number of arguments, expected 1, got " & $xs.len)
+  if not xs[0].isString:
+    raise newException(ValueError, "expected string as first argument")
+  xs[0].str.parse
+
 proc symbol(xs: varargs[KelpNode]): KelpNode =
   if xs.len < 1:
     raise newException(ValueError, "unexpected number of arguments, expected 1, got " & $xs.len)
@@ -288,6 +295,7 @@ let coreNamespace* = {
   "has?": newNative has,
   "call": newNative call,
   "string": newNative toString,
+  "parse": newNative parse,
 
   "symbol": newNative symbol, # instantiation functions
   "keyword": newNative keyword,
