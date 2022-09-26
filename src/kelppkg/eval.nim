@@ -72,8 +72,9 @@ proc resolve(node: KelpNode, env: var KelpEnv): KelpNode =
   else:
     node
 
+const nimCallDepthLimit {.intdefine.} = 2000 # do i have to hard code the default like this?
 proc eval*(node: KelpNode, env: var KelpEnv): KelpNode =
-  if getStackTraceEntries().len > 1500:
+  if getFrame().calldepth > nimCallDepthLimit - 100:
     raise newException(EvalError, "too much recursion, try optimizing your code for tco")
 
   var node = node
