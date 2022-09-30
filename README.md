@@ -19,7 +19,8 @@ TBA
 - [ ] Write utility macro to avoid repitition in native definition
 - [x] Fix string converting
 - [x] Documentation
-- [ ] Explain all special forms and macros
+- [ ] Explain all special forms
+- [x] Explain macros
 - [ ] Make `defmacro!` used `defn!` syntax.
 - [ ] Library documentation
 - [ ] Analyse hash functions for proper argument checking
