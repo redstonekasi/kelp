@@ -20,6 +20,7 @@ TBA
 - [x] Fix string converting
 - [x] Documentation
 - [ ] Explain all special forms and macros
+- [ ] Make `defmacro!` used `defn!` syntax.
 - [ ] Library documentation
 - [ ] Analyse hash functions for proper argument checking
 - [ ] Bignums
@@ -154,3 +155,39 @@ These functions will only be available in the REPL and when executing a file. Th
 | Signature | Description |
 | --- | --- |
 | `ARGV` | This is not a function but  a list of arguments passed to kelp. |
+
+## Metaprogramming
+### Quotes
+#### `quote`
+The `quote` special form indicates to Kelp that the given value should not be evaluated.
+```clojure
+abc ; results in an error: 'abc' not found
+(quote abc) ; returns abc
+(1 2 3) ; results in an error: '1' is not a function
+(quote (1 2 3)) ; returns (1 2 3)
+```
+
+#### `quasiquote`
+The `quasiquote` special form works the same way as `quote`, except that it also allows you to have unquoted (evaluated) items in a quoted list. For this purpose two special forms are available within `quasiquote`: `unquote` and `splice-unquote`.  
+`unquote` evaluates its argument and puts it in its place in the quasiquoted list. `splice-unquote` also evaluates its argument, but the result is then spliced into the quasiquoted list.
+```clojure
+(def! test (quote (b c))) ; (b c)
+(quasiquote (a test d)) ; (a test d)
+(quasiquote (a (unquote test) d)) ; (a (b c) d)
+(quasiquote (a (splice-unquote test) d)) ; (a b c d)
+```
+
+#### Short forms
+```clojure
+'(123) -> (quote (1 2 3))
+`(a test d) -> (quasiquote (a test d))
+`(a ~test d) -> (quasiquote (a (unquote test) d))
+`(a ^test d) -> (quasiquote (a (splice-unquote test) d))
+```
+
+### Macros
+Macros are special functions defined using the `defmacro!` special form, which takes a symbol and a function.  
+Macros work exactly likes functions, except that the arguments passed to your macro aren't evaluated by Kelp.
+```clojure
+(defmacro! unless (fn* [p a b] `(if ~p ~b ~a)))
+```
